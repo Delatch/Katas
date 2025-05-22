@@ -1,6 +1,8 @@
 package main;
 
 public class AccountService implements AccountServiceI {
+    int balance = 0;
+
     @Override
     public void deposit(int amount) {
 
@@ -13,6 +15,6 @@ public class AccountService implements AccountServiceI {
 
     @Override
     public void printStatement() {
-
+        System.out.println("Balance : " + balance);
     }
 }
