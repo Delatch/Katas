@@ -1,13 +1,18 @@
 package main;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Transaction {
     private int amount;
-
     private TransactionType type;
 
-    public Transaction(int amount, TransactionType type) {
+    LocalDate   date;
+
+    public Transaction(int amount, TransactionType type, LocalDate date) {
         this.amount = amount;
         this.type = type;
+        this.date = date;
     }
 
     public int getAmount() {
@@ -16,5 +21,18 @@ public class Transaction {
 
     public TransactionType getType() {
         return type;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    @Override
+    public String toString(){
+        return getFormattedDate() + " || " + ((type==TransactionType.deposit) ? amount : -amount);
+    }
+
+    private String getFormattedDate() {
+        return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }
