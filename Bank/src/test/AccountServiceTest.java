@@ -1,12 +1,22 @@
 package test;
 
 import main.AccountService;
+import main.TransactionRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class AccountServiceTest {
+    TransactionRepository transactionRepository;
+    AccountService accountService;
 
-    @org.junit.jupiter.api.Test
+    @BeforeEach
+    void setUp() {
+        transactionRepository = new TransactionRepository();
+        accountService = new AccountService(transactionRepository);
+    }
+
+    @Test
     void given_a_deposit_of_100_the_balance_should_be_100() {
-        AccountService accountService = new AccountService();
         accountService.deposit(100);
         accountService.printStatement();
     }
