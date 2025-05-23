@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static com.google.common.collect.Lists.reverse;
 
 public class StatementPrinter {
+    private static final String BALANCE_HEADER = "Date | Amount | Balance";
     private final Output output;
 
     public StatementPrinter(Output output) {
@@ -14,7 +15,7 @@ public class StatementPrinter {
     }
 
     public void printStatement(List<Transaction> transactions) {
-        output.print("Date | Amount | Balance\n" +
+        output.print(BALANCE_HEADER + "\n" +
         formattedStatements(transactions));
     }
 
