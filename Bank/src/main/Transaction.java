@@ -3,6 +3,8 @@ package main;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static main.TransactionType.deposit;
+
 public class Transaction {
     private int amount;
     private TransactionType type;
@@ -10,13 +12,13 @@ public class Transaction {
     LocalDate   date;
 
     public Transaction(int amount, TransactionType type, LocalDate date) {
-        this.amount = amount;
+        this.amount = ((type== deposit) ? amount : -amount);
         this.type = type;
         this.date = date;
     }
 
     public int getAmount() {
-        return amount;
+        return  amount;
     }
 
     public TransactionType getType() {
@@ -29,7 +31,7 @@ public class Transaction {
 
     @Override
     public String toString(){
-        return getFormattedDate() + " || " + ((type==TransactionType.deposit) ? amount : -amount);
+        return getFormattedDate() + " | " + amount;
     }
 
     private String getFormattedDate() {

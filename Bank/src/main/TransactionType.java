@@ -1,5 +1,5 @@
 package main;
 
 public enum TransactionType {
-    deposit, withdraw;
+    deposit, withdrawal;
 }

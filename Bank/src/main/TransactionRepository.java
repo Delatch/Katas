@@ -1,35 +1,29 @@
 package main;
 
-import java.time.Clock;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static java.util.Collections.unmodifiableList;
 import static main.TransactionType.deposit;
-import static main.TransactionType.withdraw;
+import static main.TransactionType.withdrawal;
 
 public class TransactionRepository {
     List<Transaction> transactions = new ArrayList<>();
-    Clock clock = Clock.systemDefaultZone();
+    Calendar calendar;
+
+    public TransactionRepository(Calendar cal){
+        this.calendar = cal;
+    }
 
     public void addDeposit(int amount) {
-        this.transactions.add(new Transaction(amount, deposit, getDate()));
+        this.transactions.add(new Transaction(amount, deposit, calendar.getDate()));
     }
 
     public void addWithdraw(int amount) {
-        this.transactions.add(new Transaction(amount, withdraw,getDate()));
-    }
-
-    public int transactionsCount() {
-        return this.transactions.size();
+        this.transactions.add(new Transaction(amount, withdrawal,calendar.getDate()));
     }
 
     public List<Transaction> getTransactions() {
-        return this.transactions.stream().map(t -> new Transaction(t.getAmount(),t.getType(),t.getDate())).collect(Collectors.toList());
-    }
-
-    private LocalDate getDate() {
-        return LocalDate.ofInstant(clock.instant(), clock.getZone());
+        return unmodifiableList(transactions);
     }
 }

@@ -2,10 +2,12 @@ package main;
 
 public class AccountService {
     private final TransactionRepository transactionRepository;
+    private final StatementPrinter printer;
     int balance = 0;
 
-    public AccountService(TransactionRepository repository) {
+    public AccountService(TransactionRepository repository,StatementPrinter printer) {
         this.transactionRepository = repository;
+        this.printer = printer;
     }
     public void deposit(int amount) {
         this.transactionRepository.addDeposit(amount);
@@ -16,6 +18,6 @@ public class AccountService {
     }
 
     public void printStatement() {
-        System.out.println("Balance : " + balance);
+        printer.printStatement(transactionRepository.getTransactions());
     }
 }
